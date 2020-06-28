@@ -69,6 +69,11 @@ void HandleInputBuffer(void* inUserData,
          error:&setCategoryError]) {
             // handle error?
         }
+	    
+	NSError* error = nil;
+	if(![avSession setActive:YES error:&error]) {
+		NSLog(@"Unable to activate session: %@", [error localizedFailureReason]);
+    	}
 
         if(audioSourceType == 7) {
             [avSession setMode:AVAudioSessionModeVoiceChat error:nil];
@@ -182,6 +187,7 @@ void HandleInputBuffer(void* inUserData,
 
 	AVAudioSession *audioSession = [AVAudioSession sharedInstance];
 	[audioSession setCategory:AVAudioSessionCategoryPlayAndRecord
+		withOptions:AVAudioSessionCategoryOptionMixWithOthers | AVAudioSessionCategoryOptionDefaultToSpeaker
 			    error:nil];
 
 	_audioRecorder = [[AVAudioRecorder alloc]
