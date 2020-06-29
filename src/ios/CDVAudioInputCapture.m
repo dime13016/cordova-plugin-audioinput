@@ -34,6 +34,11 @@
                  selector:@selector(willEnterForeground)
                      name:UIApplicationWillEnterForegroundNotification
                    object:nil];
+	
+     [listener addObserver:self
+                 selector:@selector(onAudioSessionEvent)
+                     name:AVAudioSessionInterruptionNotification
+                   object:nil];
 }
 
 - (void)initialize:(CDVInvokedUrlCommand*)command
@@ -234,6 +239,23 @@
   // only start recording when we go into the foreground if we're not recording to a file
   // (otherwise starting again resets the file)
   if (_fileUrl == nil) [self.audioReceiver start];
+}
+
+- (void) onAudioSessionEvent: (NSNotification *) notification
+{
+    //Check the type of notification, especially if you are sending multiple AVAudioSession events here
+    if ([notification.name isEqualToString:AVAudioSessionInterruptionNotification]) {
+        NSLog(@"Interruption notification received!");
+
+        //Check to see if it was a Begin interruption
+        if ([[notification.userInfo valueForKey:AVAudioSessionInterruptionTypeKey] isEqualToNumber:[NSNumber numberWithInt:AVAudioSessionInterruptionTypeBegan]]) {
+            NSLog(@"Interruption began!");
+
+        } else {
+            NSLog(@"Interruption ended!");
+            //Resume your audio
+        }
+    }
 }
 
 @end
