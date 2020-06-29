@@ -45,6 +45,7 @@ typedef struct {
 - (void)start;
 - (void)stop;
 - (void)pause;
+- (void)resume;
 - (void)dealloc;
 - (AudioReceiver*)init:(int)sampleRate bufferSize:(int)bufferSizeInBytes noOfChannels:(short)channels audioFormat:(NSString*)format sourceType:(int)audioSourceType fileUrl:(NSString*)url;
 - (void)didReceiveAudioData:(short*)samples dataLength:(int)length;
