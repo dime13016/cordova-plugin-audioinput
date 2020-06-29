@@ -251,6 +251,7 @@
         } else {
             NSLog(@"Interruption ended!");
             //Resume your audio
+	    [self.audioReceiver resume];
         }
     }
 }
