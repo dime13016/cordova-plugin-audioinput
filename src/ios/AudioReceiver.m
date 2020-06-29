@@ -236,6 +236,13 @@ void HandleInputBuffer(void* inUserData,
     AudioQueuePause(_recordState.mQueue);
 }
 
+/**
+    Resume Audio Input capture
+ */
+- (void)resume {
+    AudioQueueStart(_recordState.mQueue, NULL);
+}
+
 
 /**
     Deallocate audio queue
