@@ -35,10 +35,7 @@
                      name:UIApplicationWillEnterForegroundNotification
                    object:nil];
 	
-     [listener addObserver:self
-                 selector:@selector(onAudioSessionEvent)
-                     name:AVAudioSessionInterruptionNotification
-                   object:nil];
+    [listener addObserver:self selector:@selector(onAudioSessionEvent:) name:AVAudioSessionInterruptionNotification object:nil];
 }
 
 - (void)initialize:(CDVInvokedUrlCommand*)command
